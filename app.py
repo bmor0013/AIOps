@@ -1,10 +1,15 @@
-from flask import Flask, render_template
+from flask import Flask, request,render_template
 app = Flask(__name__)
 
-@app.route('/')
-def getHello():
-    return app.send_static_file('main.html')
 
+
+@app.route('/', methods = ["POST","GET"])
+def getHello():
+    if request.method == 'POST':
+        user = request.form["entry"]
+        return(str(user))        
+    else:
+        return app.send_static_file('main.html')
 @app.route('/main')
 def getMain():
     return render_template("./main.html")
